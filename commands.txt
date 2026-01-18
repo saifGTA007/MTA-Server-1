@@ -1,0 +1,11 @@
+authentication :
+    - /accregister [accountName] [accountPassword]     ex: /accregister saifGTA myPassword
+    - /acclogin [accountName] [accountPassword]        ex: /acclogin saifGTA myPassword
+    - /acclogout [accountName] [accountPassword]        ex: /acclogout saifGTA myPassword
+
+vehicles
+    - /createveh [modelNumber]                      ex: /createveh 411
+
+Admin
+    - /setrank [accountName] [ACLgroupe]            ex: /setrank saifGTA Admin
+    - /setaclright [ACLgroupe] [ACLright] [access]  ex: /setaclright Moderator command.setrank true

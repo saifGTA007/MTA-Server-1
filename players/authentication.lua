@@ -5,11 +5,11 @@ local function isPasswordValid(pass)
 end
 
 -- create an account
-addCommandHandler('register', function(player, command, username, password)
+addCommandHandler('accregister', function(player, command, username, password)
 
     -- check if the username or the password was provided
     if not username or not password then
-        return outputChatBox('SYNTAX : /' .. command .. '[username] [password]', player, 255, 255, 255)
+        return outputChatBox('SYNTAX : /' .. command .. ' [username] [password]', player, 255, 255, 255)
     end
 
     -- check if the account already exists
@@ -30,17 +30,17 @@ addCommandHandler('register', function(player, command, username, password)
         setAccountData(account, 'hashed_password', hashedPassword)
 
         -- let the user know that the account was created successfully
-        outputChatBox('Account created successfully !, you can login with /accountLogin',player, 50, 255, 50)
+        outputChatBox('Account created successfully !, you can login with /login',player, 50, 255, 50)
     end)
 end, false, false)
 
 -- Login
 
-addCommandHandler('accountLogin', function (player, command, username, password)
+addCommandHandler('acclogin', function (player, command, username, password)
 
     -- check if the username or the password was provided
     if not username or not password then
-        return outputChatBox('SYNTAX : /' .. command .. '[username] [password]', player, 255, 255, 255)
+        return outputChatBox('SYNTAX : /' .. command .. ' [username] [password]', player, 255, 255, 255)
     end
 
      passwordHash(password, 'bcrypt', {}, function (hashedPassword)
@@ -57,9 +57,9 @@ addCommandHandler('accountLogin', function (player, command, username, password)
             end
 
             if logIn(player, account ,hashed_password) then
-                return outputChatBox('LogIn successful !', player, 50, 255, 50)
+                return outputChatBox('Login successful !', player, 50, 255, 50)
             end
-            return outputChatBox('An uknown error occured while authenticating', player, 255, 50, 50)
+            return outputChatBox('An unknown error occured while authenticating.', player, 255, 50, 50)
         end)
      end)
 end, false, false)
@@ -67,7 +67,7 @@ end, false, false)
 
 -- Logout
 
-addCommandHandler('accountLogout',function (player, command)
+addCommandHandler('acclogout',function (player, command)
 
     logOut(player)
 end, false, false)

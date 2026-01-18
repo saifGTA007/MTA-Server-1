@@ -1,5 +1,9 @@
 function createVehicleForPlayer(player, command, model)
 
+    if not model then
+        outputChatBox("Please provide a vehicle model.", player, 255, 100, 100)
+        return outputChatBox("SYNTAX /" .. command .. ' [model_number] ', player, 255, 100, 100)
+
     local db = exports.db:getConnection()
     local x, y, z = getElementPosition(player)
     local rx, ry, rz = getElementRotation(player)
@@ -23,7 +27,7 @@ function loadAllVehicles(queryHandle)
     local results = dbPoll(queryHandle, 0)
 
     if not results then
-            outputDebugString("No vehicles found in database or query failed")
+            outputDebugString("No vehicles found in database or query failed.")
             return
     end
 
