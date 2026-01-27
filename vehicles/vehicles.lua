@@ -3,15 +3,29 @@ function createVehicleForPlayer(player, command, model)
     if not model then
         outputChatBox("Please provide a vehicle model.", player, 255, 100, 100)
         return outputChatBox("SYNTAX /" .. command .. ' [model_number] ', player, 255, 100, 100)
+    end
 
     local db = exports.db:getConnection()
     local x, y, z = getElementPosition(player)
     local rx, ry, rz = getElementRotation(player)
-    y = y + 5
 
-    dbExec(db, 'INSERT INTO vehicles (model, x, y, z, rx, ry, rz) VALUES (?, ?, ?, ?, ?, ?, ?)', model, x, y, z, rx, ry, rz)
+    local matrix = getElementMatrix(player)
+    local right = matrix[1]
+    local forward = matrix[2]
+
+
+    local forwardDist = 5
+    local rightDist = 3
+
+    x = x + forward[1] * forwardDist + right[1] * rightDist
+    y = y + forward[2] * forwardDist + right[2] * rightDist
+    z = z + forward[3] * forwardDist + right[3] * rightDist + 1
+
+    dbExec(db, 'INSERT INTO vehicles (model, x, y, z, rx, ry, rz) VALUES (?, ?, ?, ?, ?, ?, ?)', model, x, y, z, 0, 0, rz)
 
     local vehicleObject = createVehicle(model, x, y, z, rx, ry, rz)
+    outputChatBox("Vehicle created successfully!", player, 0, 255, 0)
+
 
     dbQuery(function (queryHandle)
 
@@ -22,6 +36,7 @@ function createVehicleForPlayer(player, command, model)
 
         end, db, 'SELECT id FROM vehicles ORDER BY id DESC LIMIT 1')
 end
+
 
 function loadAllVehicles(queryHandle)
     local results = dbPoll(queryHandle, 0)

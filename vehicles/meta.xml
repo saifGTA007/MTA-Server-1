@@ -1,4 +1,5 @@
 <meta>
-    <script src="vehicles.lua" type="server"/>
+<script src="vehicles.lua" type="server"/>
+<script src="vehicles_c.lua" type="client"/>
 
 </meta>

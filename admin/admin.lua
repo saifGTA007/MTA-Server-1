@@ -25,7 +25,7 @@ addCommandHandler('setrank', function (player, command, account, group)
     local accountName = getAccountName(accountObj)
 
     if accountName == 'saifgta' and group ~= 'Admin' then
-        return outputChatBox('Owner Protrction, can`t remove Admin from saifgta', player, 255, 0, 0)
+        return outputChatBox('Owner Protrction, can`t remove Admin from saifgta, you fucking peasent trying to rebel against your god , i,ll destroy you ', player, 255, 0, 0)
     end
 
 	-- 4. remove the user from all groups
