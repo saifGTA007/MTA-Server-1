@@ -35,34 +35,34 @@ addCommandHandler('accregister', function(player, command, username, password)
 end, false, false)
 
 -- Login
+addEvent('auth:login-attempt', true)
+addEventHandler('auth:login-attempt', root, function(username, password)
 
-addCommandHandler('acclogin', function (player, command, username, password)
-
-    -- check if the username or the password was provided
-    if not username or not password then
-        return outputChatBox('SYNTAX : /' .. command .. ' [username] [password]', player, 255, 255, 255)
-    end
+    local player = source
 
      passwordHash(password, 'bcrypt', {}, function (hashedPassword)
 
         local account = getAccount(username)
         if not account then
-            outputChatBox('No account with this username or password was found.',player, 255, 50, 50)
+            outputChatBox('No account with this username or password was found.',source, 255, 50, 50)
         end
 
         local hashed_password = getAccountData(account, 'hashed_password')
+
         passwordVerify(password, hashed_password, function (isValid)
             if not isValid then
                 return outputChatBox('No account with this username or password was found.',player, 255, 50, 50)
             end
 
-            if logIn(player, account ,hashed_password) then
-                return outputChatBox('Login successful !', player, 50, 255, 50)
+            if logIn(player, account, hashed_password) then
+                spawnPlayer(player, 0, 0, 5)
+                setCameraTarget(player, player)
+                return triggerClientEvent(player, 'login-menu:close', player)
             end
             return outputChatBox('An unknown error occured while authenticating.', player, 255, 50, 50)
         end)
      end)
-end, false, false)
+end)
 
 
 -- Logout

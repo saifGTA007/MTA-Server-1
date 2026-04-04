@@ -5,6 +5,7 @@ authentication :
 
 vehicles
     - /createveh [modelNumber]                      ex: /createveh 411
+    - /flycar                                       warning: when it is activated there is no going back (no setFalse yet), except by restarting the server ofcourse
 
 Admin
     - /setrank [accountName] [ACLgroupe]            ex: /setrank saifGTA Admin
